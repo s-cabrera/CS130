@@ -1,0 +1,4 @@
+
+scon commands
+
+scon -c this will do the equivalent of make clean
