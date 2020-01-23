@@ -42,13 +42,16 @@ void Camera::Set_Resolution(const ivec2& number_pixels_input)
 vec3 Camera::World_Position(const ivec2& pixel_index)
 {
     vec3 result;
+    vec2 C = Cell_Center(pixel_index);
     /*
     The world position of a pixel can be calculated by the folowing formula
         // F_p + u C_x + v C_y
     u: horizontal_vector, v: vertical_vector, and F_p: film_position (bottom
     left corner of the screen)
     C: of type vec2 can be obtained by Cell_Center(pixel_index) //see camera.h 
-    
     */
+
+    result = film_position + (C[0]* horizontal_vector) + (C[1]*vertical_vector);
+
     return result;
 }

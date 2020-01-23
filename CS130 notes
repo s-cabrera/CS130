@@ -10,4 +10,16 @@ To run the tests,
 
 run ./ray_tracer -i <test-file>, 
 
-where test-file is one of the provided test files. More detailed usage instructions are provided in the main.cpp file. The tests are designed to be implemented and debugged in order and are intended to help you debug your implementation. They will also be used for grading.
+where test-file is one of the provided test files. More detailed usage instructions are provided in the main.cpp file. 
+The tests are designed to be implemented and debugged in order and are intended to help you debug your implementation. 
+They will also be used for grading.
+
+Here are the notes for Lab 2:
+A Hit has an object type.
+
+The end of where you want to be is what you put first. Making a ray x from ray u and v
+
+Render Pixel:
+Use the World_Postion function with parameter pixel_index
+The two endpoints you need for the ray are Camera.endpoint and the World Position (pixel_index);
+Don't for get to normaliza
