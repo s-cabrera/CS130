@@ -2,3 +2,12 @@
 scon commands
 
 scon -c this will do the equivalent of make clean
+
+Notes: Using scon -c removed the ray tracer file/folder 
+
+
+To run the tests, 
+
+run ./ray_tracer -i <test-file>, 
+
+where test-file is one of the provided test files. More detailed usage instructions are provided in the main.cpp file. The tests are designed to be implemented and debugged in order and are intended to help you debug your implementation. They will also be used for grading.
