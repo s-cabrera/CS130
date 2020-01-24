@@ -99,15 +99,17 @@ vec3 Render_World::Cast_Ray(const Ray& ray,int recursion_depth)
     */
     vec3 color;
     TODO; // determine the color here
-/*
-    if(){
+    // Use int part from Hit
+    Closest_Intersection(ray).
+
+    if(Closest_Intersection(ray, ) != NULL){
 
     }
     else{
 
     }
 
-*/
+
     return color;
 }
 
