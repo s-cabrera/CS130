@@ -99,17 +99,22 @@ vec3 Render_World::Cast_Ray(const Ray& ray,int recursion_depth)
         is a flat_shader so you can use any 3d vector as parameters
     */
     vec3 color;
-    TODO; // determine the color here
-    // Use int part from Hit
-    Closest_Intersection(ray).
+    TODO;
+    Hit temp = Closest_Intersection(ray);;
 
-    if(Closest_Intersection(ray, ) != NULL){
-
+    if(temp.object != NULL){
+        color = background_shader->Shade_Surface(ray,
+        ray.Point(temp.dist), 
+        temp.object->Normal(ray.Point(temp.dist),temp.part),
+        recursion_depth);
     }
     else{
-
+        background_shader = new Flat_Shader(*this);
+        color = background_shader->Shade_Surface(ray,
+        ray.Point(temp.dist), 
+        temp.object->Normal(ray.Point(temp.dist),temp.part),
+        recursion_depth);
     }
-
 
     return color;
 }
