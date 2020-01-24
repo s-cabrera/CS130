@@ -23,32 +23,7 @@ Render_World::~Render_World()
 Hit Render_World::Closest_Intersection(const Ray& ray)
 {
     TODO;
-    /*
-    Set min_t to a large value (google std numeric_limits)
-    For each object* in objects: 
-        use object -> Intersect to get the hit with the object
-        If hit is the closest so far and larger than small_t 
-        (i.e. with smallest t, that is larger than small_t)
-            then store the hit as the closest hit
-    return closest hit
-    */
-   // for (object* obj : objects) each iteration object will 
-   //be a new object in the next object of your vector (Kris told me this)
-   // "obj->" " will replace "object.at(i)"
-
-    double min_t = std::numeric_limits<double>::max();
-    Hit temp; // the function returns a Hit regardless
-    for(unsigned int i = 0; i < objects.size(); i++){
-       if((objects.at(i)->Intersection(ray, objects.at(i)->number_parts).dist < temp.dist) 
-       && (objects.at(i)->Intersection(ray, objects.at(i)->number_parts).dist > small_t)){
-           //temp.object = objects.at(i);
-           //temp.part = objects.at(i).number_parts;
-           //temp.dist = objects.at(i)->Intersection.dist;
-           temp = objects.at(i)->Intersection(ray, objects.at(i)->number_parts);
-       } 
-    }
-
-    return temp;
+    return {};
     
 }
 
@@ -56,15 +31,6 @@ Hit Render_World::Closest_Intersection(const Ray& ray)
 void Render_World::Render_Pixel(const ivec2& pixel_index)
 {
     TODO; // set up the initial view ray here
-    /*
-    //end_point: camera position (from camera class)
-    //direction: a unit vector from the camera position to the world position of 
-    //the pixel. 
-        //vec3 class has normalized() function that returns the normalized vector;
-    */
-   // Calculate the ray with (World_Position(pixel_index) - camera.endpoint)
-    vec3 dir (camera.World_Position(pixel_index) - camera.position);
-    dir = dir.normalized();
     Ray ray (camera.position, dir);
     vec3 color=Cast_Ray(ray,1);
     camera.Set_Pixel(pixel_index,Pixel_Color(color));
@@ -85,8 +51,8 @@ void Render_World::Render()
 vec3 Render_World::Cast_Ray(const Ray& ray,int recursion_depth)
 {
     /*
-    Get the closest hit with an objedt using Closest_Intersection
-    If there is am intersection:
+    Get the closest hit with an object using Closest_Intersection
+    If there is an intersection:
         Set color using the object Shade_Surface function which calculates and
         returns the color of the ray/object intersection point. 
         Shade_Surface receives as parameters: ray, intersection point, normal at
@@ -99,7 +65,6 @@ vec3 Render_World::Cast_Ray(const Ray& ray,int recursion_depth)
     */
     vec3 color;
     TODO; // determine the color here
-
     return color;
 }
 

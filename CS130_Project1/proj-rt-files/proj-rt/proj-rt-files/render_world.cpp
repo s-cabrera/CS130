@@ -32,12 +32,23 @@ Hit Render_World::Closest_Intersection(const Ray& ray)
             then store the hit as the closest hit
     return closest hit
     */
-   
-    //int min_t;
-    //min_t = min_t.max();
-    //Hit temp ; 
-   // if (ray->Intersect < )
-    return {};
+   // for (object* obj : objects) each iteration object will 
+   //be a new object in the next object of your vector (Kris told me this)
+   // "obj->" " will replace "object.at(i)"
+
+    double min_t = std::numeric_limits<double>::max();
+    Hit temp; // the function returns a Hit regardless
+    for(unsigned int i = 0; i < objects.size(); i++){
+       if((objects.at(i)->Intersection(ray, objects.at(i)->number_parts).dist < temp.dist) 
+       && (objects.at(i)->Intersection(ray, objects.at(i)->number_parts).dist > small_t)){
+           //temp.object = objects.at(i);
+           //temp.part = objects.at(i).number_parts;
+           //temp.dist = objects.at(i)->Intersection.dist;
+           temp = objects.at(i)->Intersection(ray, objects.at(i)->number_parts);
+       } 
+    }
+
+    return temp;
     
 }
 
@@ -50,11 +61,11 @@ void Render_World::Render_Pixel(const ivec2& pixel_index)
     //direction: a unit vector from the camera position to the world position of 
     //the pixel. 
         //vec3 class has normalized() function that returns the normalized vector;
-
-
     */
-
-    Ray ray;
+   // Calculate the ray with (World_Position(pixel_index) - camera.endpoint)
+    vec3 dir (camera.World_Position(pixel_index) - camera.position);
+    dir = dir.normalized();
+    Ray ray (camera.position, dir);
     vec3 color=Cast_Ray(ray,1);
     camera.Set_Pixel(pixel_index,Pixel_Color(color));
 }
@@ -74,8 +85,8 @@ void Render_World::Render()
 vec3 Render_World::Cast_Ray(const Ray& ray,int recursion_depth)
 {
     /*
-    Get the closest hit with an objedt using Closest_Intersection
-    If there is am intersection:
+    Get the closest hit with an object using Closest_Intersection
+    If there is an intersection:
         Set color using the object Shade_Surface function which calculates and
         returns the color of the ray/object intersection point. 
         Shade_Surface receives as parameters: ray, intersection point, normal at
@@ -88,7 +99,15 @@ vec3 Render_World::Cast_Ray(const Ray& ray,int recursion_depth)
     */
     vec3 color;
     TODO; // determine the color here
+/*
+    if(){
 
+    }
+    else{
+
+    }
+
+*/
     return color;
 }
 
