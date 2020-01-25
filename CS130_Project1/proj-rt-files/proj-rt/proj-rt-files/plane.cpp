@@ -9,6 +9,10 @@
 Hit Plane::Intersection(const Ray& ray, int part) const
 {
     TODO;
+   // Hit temp;
+   // temp.object = this;
+    //temp.dist = ray.point 
+    //temp.part = part;
     return {0,0,0};
 }
 

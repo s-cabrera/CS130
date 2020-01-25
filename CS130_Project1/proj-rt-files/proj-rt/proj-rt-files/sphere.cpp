@@ -5,6 +5,10 @@
 Hit Sphere::Intersection(const Ray& ray, int part) const
 {
     TODO;
+    // we have a center and a radius as Sphere components
+   // vec3 sphereDir = (1,1,1);
+    //vec3 sphereEndpoint = center + 
+    //Hit temp.part = part;
     return {0,0,0};
 }
 
