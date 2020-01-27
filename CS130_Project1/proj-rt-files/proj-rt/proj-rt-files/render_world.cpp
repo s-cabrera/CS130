@@ -37,19 +37,21 @@ Hit Render_World::Closest_Intersection(const Ray& ray)
    // "obj->" " will replace "object.at(i)"
 
     double min_t = std::numeric_limits<double>::max();
-    Hit temp; // the function returns a Hit regardless
-    temp.dist = min_t;
+    Hit temp, final; // the function returns a Hit, one is for storing the object
+    final.object = NULL;// this is the Hit that will be return
+    final.dist = min_t;
     for(unsigned int i = 0; i < objects.size(); i++){
-       if((objects.at(i)->Intersection(ray, objects.at(i)->number_parts).dist < temp.dist) 
-       && (objects.at(i)->Intersection(ray, objects.at(i)->number_parts).dist > small_t)){
+        temp = objects.at(i)->Intersection(ray, objects.at(i)->number_parts);
+       if((temp.dist <= min_t)//final.dist)
+        && (temp.dist > small_t)){
            //temp.object = objects.at(i);
            //temp.part = objects.at(i).number_parts;
            //temp.dist = objects.at(i)->Intersection.dist;
-           temp = objects.at(i)->Intersection(ray, objects.at(i)->number_parts);
+           final = temp;
        } 
     }
 
-    return temp;
+    return final;
     
 }
 
