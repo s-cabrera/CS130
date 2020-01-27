@@ -23,22 +23,21 @@ Hit Sphere::Intersection(const Ray& ray, int part) const
     //If the discriminant (b^2 -4ac) is < 0, there is no solution
     if(discriminant < 0){
         temp.object = NULL;
-        temp.dist = NULL;
     }
     
     //If the discriminant (b^2 -4ac) is = 0, there is one solution
     if(discriminant == 0){
         temp.object = this;
-        temp.dist = ray.Point((-b)/(2*a)); // t = (-b/2a)
+        temp.part = ((-b)/(2*a)); // t = (-b/2a)
     }
     
     
     else{
-        double t1, t2;
         temp.part = part;
-        temp.object = ; 
+        temp.object = this;
+        temp.part = ((-b - sqrt(discriminant))/(2*a)); 
     }
-    return {0,0,0};
+    return temp;
 }
 
 vec3 Sphere::Normal(const vec3& point, int part) const
