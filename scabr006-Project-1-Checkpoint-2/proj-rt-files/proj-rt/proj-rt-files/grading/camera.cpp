@@ -52,6 +52,6 @@ vec3 Camera::World_Position(const ivec2& pixel_index)
     */
 
     result = film_position + (C[0]* horizontal_vector) + (C[1]*vertical_vector);
-    std::cout << "Result(World Position): " << result << "\n"; 
+    //std::cout << "Result(World Position): " << result << "\n"; 
     return result;
 }

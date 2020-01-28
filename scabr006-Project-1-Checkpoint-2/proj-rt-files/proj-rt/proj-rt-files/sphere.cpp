@@ -34,11 +34,14 @@ Hit Sphere::Intersection(const Ray& ray, int part) const
     else if(discriminant > 0){
         double t1 = ((-b) - sqrt(discriminant))/(2*a);
         double t2 = ((-b) + sqrt(discriminant))/(2*a);
-        if(t1 < t2){
+        if((t1 >= 0) && (t1 < t2)){
             temp = {this,t1,0};
         }
-        else if(t2 < t1){
+        else if((t2 >= 0) && (t2 < t1)){
             temp = {this, t2, 0};
+        }
+        else if((t1 < 0) && (t2 < 0)){
+            return null;
         }
         else{
             temp = {this, t1, 0};

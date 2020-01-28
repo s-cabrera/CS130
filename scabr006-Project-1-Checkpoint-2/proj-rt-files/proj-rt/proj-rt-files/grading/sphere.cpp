@@ -6,9 +6,7 @@ Hit Sphere::Intersection(const Ray& ray, int part) const
 {
     TODO;
     //we have a center and a radius as Sphere components
-    //vec3 sphereDir(1,1,1);
-    //vec3 sphereEndpoint = center + radius*sphereDir;
-    Hit temp;
+    Hit temp, null;
     double a, b, c, discriminant;
     
     //These are the constant for the quadratic equation
@@ -18,27 +16,39 @@ Hit Sphere::Intersection(const Ray& ray, int part) const
     discriminant = std::pow(b,2)-(4*a*c);
 
     //Set the part of the Hit temp
-    temp.part = part;
-
+    //temp.object = this;
+    
     //If the discriminant (b^2 -4ac) is < 0, there is no solution
     if(discriminant < 0){
-        temp.object = NULL;
+       // std::cout<<"Sphere returns null\n";
+        return null;
     }
-    
     //If the discriminant (b^2 -4ac) is = 0, there is one solution
-    if(discriminant == 0){
-        temp.object = this;
-        temp.part = ((-b)/(2*a)); // t = (-b/2a)
+    else if(discriminant == 0){
+       // temp.dist = ((-b)/(2*a)); // t = (-b/2a)
+       // temp.part = 0;
+        temp = {this, ((-b)/(2*a)), 0};
+
     }
     
-    
-    else{
-        temp.part = part;
-        temp.object = this;
-        temp.part = ((-b - sqrt(discriminant))/(2*a)); 
+    else if(discriminant > 0){
+        double t1 = ((-b) - sqrt(discriminant))/(2*a);
+        double t2 = ((-b) + sqrt(discriminant))/(2*a);
+        if((t1 >= 0) && (t1 < t2)){
+            temp = {this,t1,0};
+        }
+        else if((t2 >= 0) && (t2 < t1)){
+            temp = {this, t2, 0};
+        }
+        else if((t1 < 0) && (t2 < 0)){
+            return null;
+        }
+        else{
+            temp = {this, t1, 0};
+        }
     }
 
-    std::cout << "Intersection::sphere\n";
+    //std::cout << "Intersection::sphere\n";
     return temp;
 }
 

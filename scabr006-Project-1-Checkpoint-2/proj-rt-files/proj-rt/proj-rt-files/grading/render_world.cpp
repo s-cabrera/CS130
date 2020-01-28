@@ -36,12 +36,12 @@ Hit Render_World::Closest_Intersection(const Ray& ray)
    //be a new object in the next object of your vector (Kris told me this)
    // "obj->" " will replace "object.at(i)"
 
-    double min_t = std::numeric_limits<double>::max();
+    double min_t = __DBL_MAX__;//std::numeric_limits<double>::max();
     Hit temp, final; // the function returns a Hit, one is for storing the object
-    final.object = NULL;// this is the Hit that will be return
+    final.object = __null;// this is the Hit that will be return
 
     for(unsigned int i = 0; i < objects.size(); i++){
-        temp = objects.at(i)->Intersection(ray, objects.at(i)->number_parts);
+        temp = objects.at(i)->Intersection(ray, 0);//objects.at(i)->number_parts);
        if((temp.dist < min_t) && (temp.dist >= small_t)){
            final.object = temp.object;
            final.part = temp.part;
@@ -65,12 +65,12 @@ void Render_World::Render_Pixel(const ivec2& pixel_index)
         //vec3 class has normalized() function that returns the normalized vector;
     */
    // Calculate the ray with (World_Position(pixel_index) - camera.endpoint)
-    vec3 dir (camera.World_Position(pixel_index) - camera.position);
+    vec3 dir(camera.World_Position(pixel_index) - camera.position);
     dir = dir.normalized();
     Ray ray (camera.position, dir);
     vec3 color=Cast_Ray(ray,1);
     camera.Set_Pixel(pixel_index,Pixel_Color(color));
-    std::cout << "Render Pixel\n"; 
+    //std::cout << "Render Pixel\n"; 
 }
 
 void Render_World::Render()
@@ -99,13 +99,15 @@ vec3 Render_World::Cast_Ray(const Ray& ray,int recursion_depth)
     Else (if there is no intersection)
         Use background_shader of the render_world class. The background shader 
         is a flat_shader so you can use any 3d vector as parameters
-    */
+    */ 
+    
+    TODO;
     vec3 color;
     vec3 null;
-    TODO;
+
     Hit temp = Closest_Intersection(ray);
 
-    if(temp.object != NULL){
+    if(temp.object == __null){
         background_shader = new Flat_Shader(*this);
         color = background_shader->Shade_Surface(ray,
         null, null, recursion_depth);
@@ -116,7 +118,7 @@ vec3 Render_World::Cast_Ray(const Ray& ray,int recursion_depth)
         temp.object->Normal(ray.Point(temp.dist),temp.part),
         recursion_depth);
     }
-    std::cout << "Cast Ray\n";
+   // std::cout << "Cast Ray\n";
     return color;
 }
 
