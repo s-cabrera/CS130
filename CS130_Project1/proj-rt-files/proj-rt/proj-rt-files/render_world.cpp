@@ -36,23 +36,22 @@ Hit Render_World::Closest_Intersection(const Ray& ray)
    //be a new object in the next object of your vector (Kris told me this)
    // "obj->" " will replace "object.at(i)"
 
-    double min_t = std::numeric_limits<double>::max();
+    double min_t = __DBL_MAX__;//std::numeric_limits<double>::max();
     Hit temp, final; // the function returns a Hit, one is for storing the object
-    final.object = NULL;// this is the Hit that will be return
-    final.dist = min_t;
+    final.object = __null;// this is the Hit that will be return
+
     for(unsigned int i = 0; i < objects.size(); i++){
-        temp = objects.at(i)->Intersection(ray, objects.at(i)->number_parts);
-       if((temp.dist <= min_t)//final.dist)
-        && (temp.dist > small_t)){
-           //temp.object = objects.at(i);
-           //temp.part = objects.at(i).number_parts;
-           //temp.dist = objects.at(i)->Intersection.dist;
-           final = temp;
+        temp = objects.at(i)->Intersection(ray, 0);//objects.at(i)->number_parts);
+       if((temp.dist < min_t) && (temp.dist >= small_t)){
+           final.object = temp.object;
+           final.part = temp.part;
+           final.dist = temp.dist;
+           min_t = temp.dist;
        } 
     }
-
+    //std::cout << "This is Closest Intersection\n";
     return final;
-    
+
 }
 
 // set up the initial view ray and call
@@ -66,11 +65,12 @@ void Render_World::Render_Pixel(const ivec2& pixel_index)
         //vec3 class has normalized() function that returns the normalized vector;
     */
    // Calculate the ray with (World_Position(pixel_index) - camera.endpoint)
-    vec3 dir (camera.World_Position(pixel_index) - camera.position);
+    vec3 dir(camera.World_Position(pixel_index) - camera.position);
     dir = dir.normalized();
     Ray ray (camera.position, dir);
     vec3 color=Cast_Ray(ray,1);
     camera.Set_Pixel(pixel_index,Pixel_Color(color));
+    //std::cout << "Render Pixel\n"; 
 }
 
 void Render_World::Render()
@@ -99,25 +99,26 @@ vec3 Render_World::Cast_Ray(const Ray& ray,int recursion_depth)
     Else (if there is no intersection)
         Use background_shader of the render_world class. The background shader 
         is a flat_shader so you can use any 3d vector as parameters
-    */
-    vec3 color;
+    */ 
+    
     TODO;
-    Hit temp = Closest_Intersection(ray);;
+    vec3 color;
+    vec3 null;
 
-    if(temp.object != NULL){
-        color = background_shader->Shade_Surface(ray,
-        ray.Point(temp.dist), 
-        temp.object->Normal(ray.Point(temp.dist),temp.part),
-        recursion_depth);
-    }
-    else{
+    Hit temp = Closest_Intersection(ray);
+
+    if(temp.object == __null){
         background_shader = new Flat_Shader(*this);
         color = background_shader->Shade_Surface(ray,
+        null, null, recursion_depth);
+    }
+    else{
+        color = background_shader->Shade_Surface(ray,
         ray.Point(temp.dist), 
         temp.object->Normal(ray.Point(temp.dist),temp.part),
         recursion_depth);
     }
-
+   // std::cout << "Cast Ray\n";
     return color;
 }
 
