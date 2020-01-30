@@ -31,12 +31,16 @@ Hit Sphere::Intersection(const Ray& ray, int part) const
 
     }
     
-    else if(discriminant > 0){
+    else{
         double t1 = ((-b) - sqrt(discriminant))/(2*a);
         double t2 = ((-b) + sqrt(discriminant))/(2*a);
-        if((t1 >= 0) && (t1 < t2)){
-            temp = {this,t1,0};
+        if(t1 > t2)
+        {
+            t1 = t2;
+        //    temp = {this,t1,0};
         }
+        temp = {this,t1,0};
+        /*
         else if((t2 >= 0) && (t2 < t1)){
             temp = {this, t2, 0};
         }
@@ -46,6 +50,7 @@ Hit Sphere::Intersection(const Ray& ray, int part) const
         else{
             temp = {this, t1, 0};
         }
+        */
     }
 
     //std::cout << "Intersection::sphere\n";
