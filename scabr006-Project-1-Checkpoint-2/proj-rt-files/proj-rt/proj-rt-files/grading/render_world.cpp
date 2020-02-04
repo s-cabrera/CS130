@@ -115,7 +115,7 @@ vec3 Render_World::Cast_Ray(const Ray& ray,int recursion_depth)
         color = temp.object->material_shader->Shade_Surface(ray,
         ray.Point(temp.dist), 
         temp.object->Normal(ray.Point(temp.dist),temp.part),
-        recursion_depth);
+        recursion_depth); // determine the color
     }
    // std::cout << "Cast Ray\n";
     return color;

@@ -9,24 +9,31 @@ Shade_Surface(const Ray& ray,const vec3& intersection_point,
     const vec3& normal,int recursion_depth) const
 {
         TODO; //determine the color
-    vec3 color = color_ambient*world.ambient_color*world.ambient_intensity;
+    //Ambient
+	vec3 color = color_ambient*world.ambient_color*world.ambient_intensity;
+
+	//Diffuse
 	for (unsigned int i = 0; i<world.lights.size(); i++){
-		double j = dot(normal, (world.lights.at(i)->position - intersection_point).normalized());
+		double j = dot(normal, (world.lights.at(i)->position - intersection_point).normalized()); // l (dot) n (pg 234: Eq. "10.0")
 		if (j>0){
-			color += color_diffuse*world.lights.at(i)->Emitted_Light(world.lights.at(i)->position-intersection_point).magnitude_squared();
+			// C = Cr(color_diffuse) x (Cl) x (l (dot) n) (pg 234: Eq.(10.2))
+			color += color_diffuse*world.lights.at(i)->Emitted_Light(world.lights.at(i)->position-intersection_point)*j;
 		}
 	}
-	double temp = 0;
+
+	//Specular
+	//double temp = 0;
 	for(unsigned int i = 0; i<world.lights.size(); i++){
-		double j = dot((world.lights.at(i)->position-intersection_point).normalized(), normal);
-		vec3 myVec = j*2*normal-(world.lights.at(i)->position-intersection_point).normalized();
+		double temp = 0;
+		double k = dot((world.lights.at(i)->position-intersection_point).normalized(), normal);
+		vec3 myVec = k*2*normal-(world.lights.at(i)->position-intersection_point).normalized();
 		temp += (-1)*dot(ray.direction, myVec);
 		
 		if(temp>0){
-			color+= color_specular*world.lights.at(i)->Emitted_Light(world.lights.at(i)->position-intersection_point).magnitude_squared();
+			color+= color_specular*world.lights.at(i)->Emitted_Light(world.lights.at(i)->position-intersection_point) * pow(temp, specular_power);
 		}
 	}
-	
+
     return color;
 }
 

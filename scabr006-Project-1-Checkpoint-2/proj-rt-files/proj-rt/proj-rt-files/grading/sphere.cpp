@@ -59,9 +59,9 @@ Hit Sphere::Intersection(const Ray& ray, int part) const
 
 vec3 Sphere::Normal(const vec3& point, int part) const
 {
-    vec3 normal;
+    vec3 normal = point - center;
     TODO; // compute the normal direction
-    return normal;
+    return normal.normalized();
 }
 
 Box Sphere::Bounding_Box(int part) const
