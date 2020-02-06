@@ -53,7 +53,7 @@ public:
 
     void append(const T& item)
     {
-        const T temp = item;
+        T temp = item;
         resize(num_entries + 1);
         data[num_entries] = temp;
         num_entries++;
