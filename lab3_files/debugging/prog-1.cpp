@@ -1,6 +1,6 @@
 #include <iostream>
-template <class T>
 
+template<class T>
 class array
 {
     T * data;
