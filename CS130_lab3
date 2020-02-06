@@ -1,1 +1,10 @@
 Use the bolt.cs.ucr.edu
+
+valgrind ./prog-1.cpp
+gdb 
+
+It never deallocates the memory from the previous array.
+
+The lab 3 sizet i in the for loop condition underflows when it gets to 0 and subtracts one. 
+0 --> (0-1) is actaully size_t max because of underflow
+
