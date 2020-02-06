@@ -37,7 +37,7 @@ public:
     vec location;
 };
 
-void set_names(points* objPts, size_t number_points, const std::string& base_name)
+void set_names(point* objPts, size_t number_points, const std::string& base_name)
 {
     for(size_t i = 0; i < number_points; i++)
     {
