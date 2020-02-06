@@ -45,7 +45,7 @@ public:
             T * new_data = new T[n];
             for(size_t i = 0; i < num_entries; i++)
                 new_data[i] = data[i];
-            data = new_data;
+            //data = new_data;
             capacity = n;
         }
     }
