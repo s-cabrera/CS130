@@ -1,0 +1,15 @@
+Lab 4 Instructions: 
+
+iLearn: Lab 4 files
+Do worksheet
+Setup OpenGL shaders in application.cpp
+Write phong shading in shaders (GLSL files)
+
+
+https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/glCreateShader.xhtml
+https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/glShaderSource.xhtml
+https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/glCompileShader.xhtml
+https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/glCreateProgram.xhtml
+https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/glAttachShader.xhtml
+https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/glLinkProgram.xhtml
+https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/glUseProgram.xhtml
