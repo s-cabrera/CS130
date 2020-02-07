@@ -1,6 +1,7 @@
 #include <GL/glew.h>
 #include "application.h"
-
+#include <fstream>
+#include <sstream>
 using namespace std;
 
 void draw_obj(obj *o, int material_index);
@@ -40,16 +41,32 @@ GLuint loadShader(const char *vertexfilename, const char *fragmentfilename) {
   GLuint program = 0, vertex_shader_id = 0, fragment_shader_id = 0;
 
   // TODO: Functions you should know to implement this
+  
   // glCreateShader
+  GLuint vertex_shader = glCreateShader(vertex_shader_id);
+  GLuint fragment_shader = glCreateShader(fragment_shader_id);
+
   // glShaderSource
+  glShaderSource(vertex_shader, , vertexfilename, );  
+
   // glCompileShader
+  
   // glAttachShader
+  
   // glCreateProgram
+  
   // glLinkProgram
+  
   // http:// www.opengl.org/sdk/docs/man/
   // http:// www.lighthouse3d.com/tutorials/glsl-tutorial/creating-a-shader/
   // You are provided with the function getTextFile to load a string from a text file
 
+   
+
+	
+	
+  glCompileShader()
+	
   debugShader(vertex_shader_id, fragment_shader_id, program);
   return program;
 }
@@ -207,3 +224,5 @@ void draw_obj(obj *o, int material_index) {
 
   glEnable(GL_COLOR_MATERIAL);
 }
+
+
