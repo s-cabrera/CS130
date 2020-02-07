@@ -13,3 +13,20 @@ https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/glCreateProgram.xhtml
 https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/glAttachShader.xhtml
 https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/glLinkProgram.xhtml
 https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/glUseProgram.xhtml
+
+TODO:
+
+application.cpp --> loadShader
+fragment.glsl --> Implement Phong Shading
+vertex.glsl --> Implement Phong Shading
+
+To run code: 
+Run make command (not scons)
+Run executable ./shaders
+
+Add the following header files
+To application.cpp:
+- #include <fstream>
+- #include <sstream>
+
+
