@@ -48,11 +48,16 @@ GLuint loadShader(const char *vertexfilename, const char *fragmentfilename) {
 
   // glShaderSource
   glShaderSource(vertex_shader, , vertexfilename, );  
+  glShaderSource(fragment_shader, ,fragmentfilename, ); 
 
   // glCompileShader
+  glCompileShader(vertex_shader);
+  glCompileShader(fragment_shader);
   
   // glAttachShader
-  
+  glAttachShader();
+  glAttachShader();  
+
   // glCreateProgram
   
   // glLinkProgram
