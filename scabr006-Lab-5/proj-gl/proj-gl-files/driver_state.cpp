@@ -37,7 +37,15 @@ void initialize_render(driver_state& state, int width, int height)
 void render(driver_state& state, render_type type)
 {
     std::cout<<"TODO: implement rendering."<<std::endl;
+    
+/*
+    data_geometry[3] = 
+    state.image_height
+    vertex_data = 
+    num_vertices = 
+    floats_per_vertex = 
 
+*/
 }
 
 
