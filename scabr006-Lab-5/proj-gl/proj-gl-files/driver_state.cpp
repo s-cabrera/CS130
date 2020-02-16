@@ -39,6 +39,7 @@ void render(driver_state& state, render_type type)
 
     std::cout<<"TODO: implement rendering."<<std::endl;
     
+
     data_geometry x[3];
     for(unsigned int i = 0; i < 3; i++){
 	//for(int j = 0; j < state.floats_per_vertex; j++){
