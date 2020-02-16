@@ -36,16 +36,22 @@ void initialize_render(driver_state& state, int width, int height)
 //   render_type::strip -    The vertices are to be interpreted as a triangle strip.
 void render(driver_state& state, render_type type)
 {
+
     std::cout<<"TODO: implement rendering."<<std::endl;
     
-/*
-    data_geometry[3] = 
-    state.image_height
-    vertex_data = 
-    num_vertices = 
-    floats_per_vertex = 
-
-*/
+    data_geometry x[3];
+    for(unsigned int i = 0; i < 3; i++){
+	//for(int j = 0; j < state.floats_per_vertex; j++){
+       x[i].data = state.vertex_data;
+     //  state(*vertex_shader)(state.vertex_data, x[i], state.uniform_data);
+	//}
+    }
+    //rasterize_triangle(state, x); 
+    //state.vertex_data = 
+   // state.num_vertices = 
+   // state.floats_per_vertex = 
+   
+   //(this)(state.vertex_data, x[i], );
 }
 
 
@@ -70,5 +76,9 @@ void clip_triangle(driver_state& state, const data_geometry* in[3],int face)
 void rasterize_triangle(driver_state& state, const data_geometry* in[3])
 {
     std::cout<<"TODO: implement rasterization"<<std::endl;
+    for(int i = 0;  i < 3; i++){
+	( , in[i], state.uniform_data);
+    }
+
 }
 
