@@ -38,21 +38,27 @@ void render(driver_state& state, render_type type)
 {
 
     std::cout<<"TODO: implement rendering."<<std::endl;
-    
-
-    data_geometry x[3];
-    for(unsigned int i = 0; i < 3; i++){
-	//for(int j = 0; j < state.floats_per_vertex; j++){
-       x[i].data = state.vertex_data;
-     //  state(*vertex_shader)(state.vertex_data, x[i], state.uniform_data);
-	//}
+    int x = 0;
+    for(int i = 0; i < (state.num_vertices/3); i++){
+        //for every triangle make a data_geometry array of size three
+        data_geometry y[3];
+        const data_geometry * in[3] = {&y[0], &y[1], &y[2]};
+        for(unsigned int j = 0; j < 3; j++){
+            //for each data_geometry in the data_geometry array
+            
+            float temp[state.floats_per_vertex];
+            for(int k = 0; k < state.floats_per_vertex; k++){
+                temp[k] = *(state.vertex_data + state.floats_per_vertex + x);
+            }
+            y[j].data = temp;
+            data_vertex z;
+            z.data = y[j].data;
+            state.vertex_shader(z, y[j], state.uniform_data);
+        }
+        x++;
+        rasterize_triangle(state, in);
     }
-    //rasterize_triangle(state, x); 
-    //state.vertex_data = 
-   // state.num_vertices = 
-   // state.floats_per_vertex = 
-   
-   //(this)(state.vertex_data, x[i], );
+    
 }
 
 
@@ -77,9 +83,19 @@ void clip_triangle(driver_state& state, const data_geometry* in[3],int face)
 void rasterize_triangle(driver_state& state, const data_geometry* in[3])
 {
     std::cout<<"TODO: implement rasterization"<<std::endl;
-    for(int i = 0;  i < 3; i++){
-	( , in[i], state.uniform_data);
+    //state.vertex_shader();
+    //Pass each vertex 
+    // Divide the position by w (vec4 gl_Position has (x,y,z,w))
+    vec4 tempPos;
+    float w  = 0; 
+    for(int i = 0; i < 3; i++){
+        w = in[i]->gl_Position[3];
+        tempPos = {(in[i]->gl_Position[0]/w), (in[i]->gl_Position[1]/w), (in[i]->gl_Position[2]/w), (in[i]->gl_Position[3]/w)};
     }
 
+    // Calculate the x and y 
+    //vec4 is a float vector
+
+    //float x = tempPos[0];
 }
 

@@ -15,7 +15,7 @@ Hit Plane::Intersection(const Ray& ray, int part) const
 	double t = (dot(x1, this->normal) - dot(ray.endpoint, this->normal))/d;
 	if(d == 0){
 		//temp = {nullptr, NULL, NULL};
-		return temp;
+		return temp;// = {this, 0, part};
 	}
 	else{
 		if(t < small_t){
@@ -30,7 +30,9 @@ Hit Plane::Intersection(const Ray& ray, int part) const
 
 vec3 Plane::Normal(const vec3& point, int part) const
 {
-    return normal;
+	vec3 normal = this->normal; //(x1 - point).normalized();
+    TODO; // compute the normal direction
+    return normal;//.normalized();
 }
 
 // There is not a good answer for the bounding box of an infinite object.

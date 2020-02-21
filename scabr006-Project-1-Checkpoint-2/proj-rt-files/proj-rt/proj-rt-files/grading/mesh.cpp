@@ -43,15 +43,40 @@ void Mesh::Read_Obj(const char* file)
 Hit Mesh::Intersection(const Ray& ray, int part) const
 {
     TODO;
-    return {};
-}
+    // Consider a triangle to intersect a ray if the ray intersects the plane of the
+    // triangle with barycentric weights in [-weight_tolerance, 1+weight_tolerance]
 
+    Hit temp;
+
+    for(unsigned int i = 0; i < triangles.size(); i++){
+        for(unsigned int j = 0; j < 3; j++){
+            int k = triangles.at(i)[j];
+            double l = vertices.at(k)[j];
+            if(Intersect_Triangle(ray, k, l)){
+                temp = {this, k, part};
+            }
+        }
+    }
+
+
+    // dist = ; 
+    // for (int i = 0; i < triangles.at(i); i++){
+    //     if(Intersect_Triangle(ray, part, dist){
+    //         if(t < small_t){
+    //             temp = {this, t, part};
+    //         }
+    //     }
+    // }
+    return temp;
+}
 // Compute the normal direction for the triangle with index part.
 vec3 Mesh::Normal(const vec3& point, int part) const
 {
     assert(part>=0);
+    vec3 normal =(triangles.at(part), point).normalized();
+
     TODO;
-    return vec3();
+    return normal;
 }
 
 // This is a helper routine whose purpose is to simplify the implementation
@@ -69,7 +94,38 @@ vec3 Mesh::Normal(const vec3& point, int part) const
 bool Mesh::Intersect_Triangle(const Ray& ray, int tri, double& dist) const
 {
     TODO;
-    return false;
+    //ivec3 temp = triangles.at(tri);
+    //double j = dot(ray.direction, temp); 
+    //(triangle.at(tri)-ray.endpoint);  
+    //if(j > 0){
+
+   // }
+
+    //if(dist > small_t && (j > -weight_tolerance) && (j > -weight_tolerance) && (j > -weight_tolerance)){
+    //    return true;
+    //}
+    //else{
+        return false;
+    //}
+    /*
+	double d = dot(triangles.at(tri), ray.direction);
+	
+	if(d == 0){
+		//temp = {nullptr, NULL, NULL};
+		return false;// = {this, 0, part};
+	}
+	else{
+        double t = (dot(x1, this->normal) - dot(ray.endpoint, this->normal))/d;
+		if(t < small_t){
+		 return temp;
+		}
+		else{
+			temp = {this, t, part};
+		}
+    }
+    return temp;
+    */
+
 }
 
 // Compute the bounding box.  Return the bounding box of only the triangle whose
