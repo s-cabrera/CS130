@@ -87,15 +87,33 @@ void rasterize_triangle(driver_state& state, const data_geometry* in[3])
     //Pass each vertex 
     // Divide the position by w (vec4 gl_Position has (x,y,z,w))
     vec4 tempPos;
-    float w  = 0; 
-    for(int i = 0; i < 3; i++){
-        w = in[i]->gl_Position[3];
-        tempPos = {(in[i]->gl_Position[0]/w), (in[i]->gl_Position[1]/w), (in[i]->gl_Position[2]/w), (in[i]->gl_Position[3]/w)};
+    vec4 tempPosArr[3];
+    float w  = 0;
+    float i, j; 
+    for(int index = 0; index < 3; index++){
+        w = in[index]->gl_Position[3];
+        tempPos = {(in[index]->gl_Position[0]/w), (in[index]->gl_Position[1]/w), (in[index]->gl_Position[2]/w), (in[index]->gl_Position[3]/w)};
+        tempPosArr[index] = tempPos;
+        i = ((tempPos[0] + 1)*(0.5*state.image_width)) - (0.5);
+        j = ((tempPos[1] + 1)*(0.5*state.image_height)) - (0.5);
+    }
+
+    //Iterate through the pixels
+    for(int j = 0; j < state.image_height; j++){
+        for(int k = 0; k < state.image_width; k ++){
+
+        }
+       // state.image_color[j]  = ;
     }
 
     // Calculate the x and y 
     //vec4 is a float vector
 
     //float x = tempPos[0];
+
+    // Calculate the area of the triangle
+    float area = 0.5*
+    // Calculate the barycentric coordinates
+    
 }
 
