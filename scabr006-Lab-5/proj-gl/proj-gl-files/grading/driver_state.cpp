@@ -43,21 +43,25 @@ void render(driver_state& state, render_type type)
     
     int x = 0;
     for(int i = 0; i < (state.num_vertices/3); i++){
+        //std::cout << "triangles num = " << state.num_vertices/3 << std::endl; 
         //for every triangle make a data_geometry array of size three
         data_geometry y[3];
         const data_geometry * in[3] = {&y[0], &y[1], &y[2]};
         for(unsigned int j = 0; j < 3; j++){
-            //for each data_geometry in the data_geometry array
+            //for each data_geometry in the data_geometry array (each vertex)
             
             float temp[state.floats_per_vertex];
             for(int k = 0; k < state.floats_per_vertex; k++){
-                temp[k] = *(state.vertex_data + state.floats_per_vertex + x);
+                temp[k] = *(state.vertex_data + 
+                (state.floats_per_vertex * 3 * x) + 
+                (state.floats_per_vertex * j)+  k);
+            //    std::cout << "temp[" << k << "] = " << temp[k] << std::endl; 
             }
             y[j].data = temp;
             data_vertex z;
             z.data = y[j].data;
             state.vertex_shader(z, y[j], state.uniform_data);
-        }
+        } 
         x++;
         rasterize_triangle(state, in);
     }
@@ -121,28 +125,30 @@ void rasterize_triangle(driver_state& state, const data_geometry* in[3])
     //Iterate through the pixels, calculate the barycentric coordinates, 
     //determine if in triangle area. If so change color to triangle color
     int image_index = 0;
-    float abc = calcArea(tempPosArr[0], tempPosArr[1], tempPosArr[2], state);
+    float abc = calcArea(tempPosArr[2], tempPosArr[0], tempPosArr[1], state);
     for(int i = 0; i < state.image_height; i++){
         for(int j = 0; j < state.image_width; j++){
             image_index = (state.image_width * i) + j;
-            P[0] = i - 0.5;
-            P[1] = j - 0.5;
+            P[0] = j;// - 0.5;
+            P[1] = i;// - 0.5;
            // P.gl_Position[2] = 0;
            // P.gl_Position[3] = 1;
             
 
-            alpha = calcArea(P, tempPosArr[1], tempPosArr[2], state)/abc;
-            beta  = calcArea(tempPosArr[0], P, tempPosArr[2], state)/abc;
-            omega = calcArea(tempPosArr[0], tempPosArr[1], P, state)/abc;
+            alpha = calcArea(P, tempPosArr[0], tempPosArr[1], state)/abc;
+            beta  = calcArea(tempPosArr[2], P, tempPosArr[1], state)/abc;
+            omega = calcArea(tempPosArr[2], tempPosArr[0], P, state)/abc;
 
-            if((alpha >= 0 && alpha <= 1)  && (beta >= 0 && beta <= 1) && (omega >= 0 && omega <= 1)){
+            if((alpha >= 0 && alpha <= 1)  
+            && (beta >= 0 && beta <= 1) 
+            && (omega >= 0 && omega <= 1)){
                 // if all barycentric coordinates are >= 0, color is white  
                 state.image_color[image_index] = make_pixel(0xFF,0xFF,0xFF);
             }
-            else{
+            //else{
                 // else set the color to 
-                state.image_color[image_index] = make_pixel(0x00, 0x00, 0x00);
-            }
+            //    state.image_color[image_index] = make_pixel(0x00, 0x00, 0x00);
+            //}
             //image_index++;
         }
     }
